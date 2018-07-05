@@ -20,4 +20,6 @@ Now you can simply try it by
 ```bash
 $ echo "Hello, world!" | go run slack.go
 200 OK
+
+$ ls -al | go run slack.go -u <your-id> -n "You know who" -emoji=ghost
 ```
