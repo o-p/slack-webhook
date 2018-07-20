@@ -21,6 +21,7 @@ var (
 	username  string // 'BOT'
 	toUser    string
 	toChannel string
+	keep      bool
 )
 
 // main 之前自動執行, 將 cli 參數帶入變數中
@@ -36,6 +37,8 @@ func init() {
 
 	flag.StringVar(&iconEmoji, "emoji", "", "Emoji tag to display as avatar, e.g. ghost")
 	flag.StringVar(&iconURL, "image", "", "The URL of image to display as avatar, e.g. https://png.icons8.com/color/50/000000/anonymous-mask.png")
+
+	flag.BoolVar(&keep, "keep", false, "Keep the origin message, no auto formatter surrounded.")
 
 	flag.Parse()
 }
@@ -58,7 +61,11 @@ func buildPayload() map[string]string {
 
 	// 將文字使用 ``` 包裝, 維持 format, 方便將 cli output 呈現
 	if n > 0 {
-		payload["text"] = "```\n" + string(buffer[:]) + "\n```"
+		if keep {
+			payload["text"] = string(buffer[:])
+		} else {
+			payload["text"] = "```\n" + string(buffer[:]) + "```"
+		}
 	}
 
 	// channel - 兩種格式: #channel / @username

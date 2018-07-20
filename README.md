@@ -22,4 +22,12 @@ $ echo "Hello, world!" | go run slack.go
 200 OK
 
 $ ls -al | go run slack.go -u <your-id> -n "You know who" -emoji=ghost
+
+# example to send a emoji from bot
+$ echo ":hehopeless:" | go run slack.go \
+  -image https://storage.googleapis.com/uploads-blog-icook/2017/12/28bbbc20-item_0000002430_04.jpg \
+  -n 黑鮪魚 \
+  -keep
+200 OK
 ```
+
